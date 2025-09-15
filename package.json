@@ -1,0 +1,33 @@
+{
+  "name": "material-ui-vite-ts",
+  "version": "7.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "@react-router/fs-routes": "^7.9.1",
+    "@react-router/node": "^7.9.1",
+    "@react-router/serve": "^7.9.1",
+    "isbot": "^5.1.30",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.9.1"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.9.1",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "vite-tsconfig-paths": "latest",
+    "typescript": "latest",
+    "vite": "^7.1.5"
+  }
+}
