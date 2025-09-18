@@ -58,7 +58,8 @@ const menuItems: TypeMenuItem[] = [
   },
 ];
 
-function ResponsiveAppBar() {
+
+function ResponsiveAppBar({children}: {children: React.ReactNode}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -158,6 +159,9 @@ function ResponsiveAppBar() {
             {menuItems.map((item) => (  
               <HeaderMenu key={`${item.key}+${item.label}`} name={item.key} menuItems={item.children || []} />
             ))}
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            {children}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

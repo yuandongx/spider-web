@@ -13,6 +13,19 @@ export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:stri
     const handleClose = () => {
         setAnchorEl(null);  
     };
+    if (!menuItems || menuItems.length === 0) {
+        return (
+            <Button
+                id="demo-positioned-button"
+                aria-controls={open ? 'demo-positioned-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+                {name}
+            </Button>);
+    }
     return (
         <div>
             <Button
@@ -21,8 +34,9 @@ export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:stri
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                sx={{ my: 2, color: 'white', display: 'block' }}
             >
-                Dashboard
+                {name}
             </Button>
             <Menu
                 aria-labelledby="demo-positioned-button"
@@ -41,7 +55,7 @@ export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:stri
                     horizontal: 'right',
                 }}
             >
-                {menuItems && menuItems.map((item) => (
+                {menuItems.map((item) => (
                     <MenuItem key={item.key+'.'+name} onClick={handleClose}>
                         {item.label}
                     </MenuItem>

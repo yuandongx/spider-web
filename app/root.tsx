@@ -8,10 +8,13 @@ import {
 } from 'react-router';
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
-import AppTheme from './theme';
+import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
 import createEmotionCache from './createCache';
 import ResponsiveAppBar from './component/Header';
+import ThemeSwitch from './component/ThemeSwitch';
 import type { Route } from './+types/root';
+import { useState, useEffect } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -46,20 +49,84 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 const cache = createEmotionCache();
 
+// 定义light和dark模式的主题配置
+const lightTheme = createTheme({
+  colorSchemes: {
+    light: true,
+  },
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    },
+  },
+});
+
+const darkTheme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#90caf9',
+    },
+    secondary: {
+      main: '#f48fb1',
+    },
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+  },
+});
 export default function App() {
+  const { setColorScheme, mode: systemMode } = useColorScheme();
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
+  
+  // 初始化时应用系统主题
+  useEffect(() => {
+    if (systemMode) {
+      setMode(systemMode);
+    }
+  }, [systemMode]);
+  
+  const handleThemeSwitch = () => {
+    const newMode = mode === 'dark' ? 'light' : 'dark';
+    setMode(newMode);
+    setColorScheme(newMode);
+  };
+  // 根据当前模式选择主题
+  const currentTheme = mode === 'dark' ? darkTheme : lightTheme;
+  
   if (typeof window !== 'undefined') {
     return (
-      <CacheProvider value={cache}>
-        <ResponsiveAppBar>
+      <ThemeProvider theme={currentTheme}>
+        <CacheProvider value={cache}>
+          <CssBaseline />
+          <ResponsiveAppBar>
+            <ThemeSwitch onChange={handleThemeSwitch} />
+          </ResponsiveAppBar>
           <Outlet />
-        </ResponsiveAppBar>
-      </CacheProvider>
+        </CacheProvider>
+      </ThemeProvider>
     );
   }
   return (
-    <AppTheme>
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline />
+      <ResponsiveAppBar>
+        <ThemeSwitch onChange={handleThemeSwitch} />
+      </ResponsiveAppBar>
       <Outlet />
-    </AppTheme>
+    </ThemeProvider>
   );
 }
 
