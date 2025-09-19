@@ -13,6 +13,9 @@ type Pages = {
   "/": {
     params: {};
   };
+  "/stock/shanghai": {
+    params: {};
+  };
   "/about": {
     params: {};
   };
@@ -24,7 +27,11 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/about" | "/home";
+    page: "/" | "/stock/shanghai" | "/about" | "/home";
+  };
+  "routes/stock.shanghai.tsx": {
+    id: "routes/stock.shanghai";
+    page: "/stock/shanghai";
   };
   "routes/about.tsx": {
     id: "routes/about";

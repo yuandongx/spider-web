@@ -19,43 +19,76 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const menuItems: TypeMenuItem[] = [
   {
-    label: 'Products',
-    href: '/products',
-    key: 'products',
+    label: '主页',
+    href: '/home',
+    key: 'home',
+  },
+  {
+    label: '股市',
+    href: '/stock',
+    key: 'stock',
     children: [
       {
-        label: 'Products11',
-        href: '/products11',
-        key: 'products11',
+        label: '沪A',
+        href: '/stock/shanghai',
+        key: 'stock.shanghai',
       },
       {
-        label: 'Products22',
-        href: '/products22',
-        key: 'products22',
-      },
-      {
-        label: 'Products33',
-        href: '/products33',
-        key: 'products33',
+        label: '深A',
+        href: '/stock/shenzheng',
+        key: 'stock.shenzheng',
       },
     ]
   },
   {
-    label: 'Pricing',
-    href: '/pricing',
-    key: 'pricing',
+    label: '基金',
+    href: '/fund',
+    key: 'fund',
     children:[{
-      label: 'Pricing11',
-      href: '/pricing11',
-      key: 'pricing11',
+      label: '国内',
+      href: '/fund/local',
+      key: 'fund.local',
+    },
+    {
+      label: '国外',
+      href: '/fund/foreign',
+      key: 'fund.foreign',
     }]
   },
   {
-    label: 'Blog',
-    href: '/blog',
-    key: 'blog',
-    children:[]
+    label: '关注',
+    href: '/follow',
+    key: 'follow',
+    children:[
+      {
+        label: '股票',
+        href: '/follow/stock',
+        key: 'follow.stock',
+      },
+      {
+        label: '基金',
+        href: '/follow/fund',
+        key: 'follow.fund',
+      }
+    ]
   },
+  {
+    label: '任务',
+    href: '/task',
+    key: 'task',
+    children: [
+      {
+        label: '股票',
+        href: '/task/stock',
+        key: 'task.stock',
+      },
+      {
+        label: '基金',
+        href: '/task/fund',
+        key: 'task.fund',
+      }
+    ]
+  }
 ];
 
 
@@ -77,7 +110,6 @@ function ResponsiveAppBar({children}: {children: React.ReactNode}) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  console.log('menuItems', menuItems);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -157,7 +189,10 @@ function ResponsiveAppBar({children}: {children: React.ReactNode}) {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {menuItems.map((item) => (  
-              <HeaderMenu key={`${item.key}+${item.label}`} name={item.key} menuItems={item.children || []} />
+              <HeaderMenu key={`${item.key}+${item.label}`}
+               linkto={item.href} 
+               name={item.label}
+               menuItems={item.children || []} />
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>

@@ -1,10 +1,10 @@
-import { Button, Menu, MenuItem } from "@mui/material"
+import { Button, Menu, MenuItem, Link } from "@mui/material"
 import { TypeMenuItem } from '../types/MenuItem';
 
 import { useState } from "react";
 
-export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:string}) {
-    const { menuItems, name } = props;
+export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:string, linkto: string}) {
+    const { menuItems, name, linkto } = props;
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,6 +21,7 @@ export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:stri
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                href={linkto}
                 sx={{ my: 2, color: 'white', display: 'block' }}
             >
                 {name}
@@ -35,6 +36,7 @@ export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:stri
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                
             >
                 {name}
             </Button>
@@ -56,8 +58,8 @@ export default function HeaderMenu(props: { menuItems: TypeMenuItem[]; name:stri
                 }}
             >
                 {menuItems.map((item) => (
-                    <MenuItem key={item.key+'.'+name} onClick={handleClose}>
-                        {item.label}
+                    <MenuItem divider  key={item.key+'.'+name} onClick={handleClose}>
+                        <Link underline="hover" href={item.href}>{item.label}</Link>
                     </MenuItem>
                 ))}
             </Menu>

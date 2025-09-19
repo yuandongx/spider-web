@@ -4,7 +4,6 @@ import Switch, { SwitchProps } from '@mui/material/Switch';
 
 
 const ThemeSwitch = styled((props: SwitchProps)=>{
-  console.log('props', props);
   return <Switch {...props} />
 })(({ theme }) => ({
   width: 62,
