@@ -12,6 +12,7 @@ import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles
 import createEmotionCache from './createCache';
 import ResponsiveAppBar from './component/Header';
 import ThemeSwitch from './component/ThemeSwitch';
+// @ts-ignore
 import type { Route } from './+types/root';
 import { useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -94,6 +95,7 @@ export default function App() {
   // 初始化时应用系统主题
   useEffect(() => {
     if (systemMode) {
+      // @ts-ignore
       setMode(systemMode);
     }
   }, [systemMode]);
